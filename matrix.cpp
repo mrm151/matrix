@@ -7,17 +7,18 @@
 // prints a string representation of the matrix
 void Matrix::print()
 {
-    for (int row = 0; row < m_matrix.size(); ++row)
+    std::cout << "[" << std::endl;
+    for (int row = 0; row < m_row_size; ++row)
     {
-        std::cout << "[";
-        for (int col = 0; col < m_matrix[0].size(); ++col)
+        std::cout << "    " << "[";
+        for (int col = 0; col < m_col_size; ++col)
         {
             std::cout << m_matrix[row][col];
-            (col == (m_matrix[0].size() - 1)) ? std::cout << "]" : std::cout << ", ";
+            (col == (m_col_size - 1)) ? std::cout << "]" : std::cout << ", ";
         }
         std::cout << std::endl;
     }
-    std::cout << std::endl;
+    std::cout << "]" << std::endl;
 }
 
 // Matrix::setElement
@@ -27,7 +28,7 @@ void Matrix::print()
 // Sets an element inside the matrix
 void Matrix::setElement(int row, int col, int value)
 {
-    m_matrix[row][col] = value;
+    (row > m_row_size || col > m_col_size) ?: m_matrix[row][col] = value;
 }
 
 // Matrix::empty()
@@ -35,5 +36,5 @@ void Matrix::setElement(int row, int col, int value)
 // Clears the matrix (sets all elements to 0)
 void Matrix::empty()
 {
-    m_matrix = std::vector<std::vector<int>>(m_matrix.size(), std::vector<int>(m_matrix[0].size(), 0));
+    m_matrix = std::vector<std::vector<int>>(m_row_size, std::vector<int>(m_col_size, 0));
 }
