@@ -44,7 +44,7 @@ std::pair<int, int> Matrix::getDimensions() const
     return std::make_pair(m_rows, m_cols);
 }
 
-void Matrix::add(Matrix other)
+void Matrix::add(const Matrix& other)
 {
     if (!equalDimensions(other)) return;
     for (int row = 0; row < m_rows; ++row)
@@ -56,7 +56,7 @@ void Matrix::add(Matrix other)
     }
 }
 
-bool Matrix::equal(Matrix other) const
+bool Matrix::equal(const Matrix& other) const
 {
     if (!equalDimensions(other)) return false;
     for (int row = 0; row < m_rows; ++row)
@@ -67,4 +67,16 @@ bool Matrix::equal(Matrix other) const
         }
     }
     return true;
+}
+
+Matrix::Matrix()
+{
+    empty();
+}
+
+void Matrix::operator=(const Matrix& other)
+{
+    m_matrix = other.m_matrix;
+    m_rows = other.m_rows;
+    m_cols = other.m_cols;
 }
