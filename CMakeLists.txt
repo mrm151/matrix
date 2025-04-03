@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.22.1)
 project(Matrix)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 set (CMAKE_CXX_STANDARD_REQUIRED ON)
 
 include(FetchContent)
@@ -16,13 +16,13 @@ enable_testing()
 add_executable(main main.cpp matrix.cpp)
 
 add_executable(
-  hello_test
+  test_matrix
   test_matrix.cpp
 )
 target_link_libraries(
-  hello_test
+  test_matrix
   GTest::gtest_main
 )
 
 include(GoogleTest)
-gtest_discover_tests(hello_test)
+gtest_discover_tests(test_matrix)

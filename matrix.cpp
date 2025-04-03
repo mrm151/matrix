@@ -5,16 +5,16 @@
 // Matrix::print()
 // @params None
 // prints a string representation of the matrix
-void Matrix::print()
+void Matrix::print() const
 {
     std::cout << "[" << std::endl;
-    for (int row = 0; row < m_row_size; ++row)
+    for (int row = 0; row < m_rows; ++row)
     {
         std::cout << "    " << "[";
-        for (int col = 0; col < m_col_size; ++col)
+        for (int col = 0; col < m_cols; ++col)
         {
             std::cout << m_matrix[row][col];
-            (col == (m_col_size - 1)) ? std::cout << "]" : std::cout << ", ";
+            (col == (m_cols - 1)) ? std::cout << "]" : std::cout << ", ";
         }
         std::cout << std::endl;
     }
@@ -28,7 +28,7 @@ void Matrix::print()
 // Sets an element inside the matrix
 void Matrix::setElement(int row, int col, int value)
 {
-    (row > m_row_size || col > m_col_size) ?: m_matrix[row][col] = value;
+    (row > m_rows || col > m_cols) ?: m_matrix[row][col] = value;
 }
 
 // Matrix::empty()
@@ -36,5 +36,35 @@ void Matrix::setElement(int row, int col, int value)
 // Clears the matrix (sets all elements to 0)
 void Matrix::empty()
 {
-    m_matrix = std::vector<std::vector<int>>(m_row_size, std::vector<int>(m_col_size, 0));
+    m_matrix = std::vector<std::vector<int>>(m_rows, std::vector<int>(m_cols, 0));
+}
+
+std::pair<int, int> Matrix::getDimensions() const
+{
+    return std::make_pair(m_rows, m_cols);
+}
+
+void Matrix::add(Matrix other)
+{
+    if (!equalDimensions(other)) return;
+    for (int row = 0; row < m_rows; ++row)
+    {
+        for (int col = 0; col < m_cols; ++col)
+        {
+            m_matrix[row][col] += other.m_matrix[row][col];
+        }
+    }
+}
+
+bool Matrix::equal(Matrix other) const
+{
+    if (!equalDimensions(other)) return false;
+    for (int row = 0; row < m_rows; ++row)
+    {
+        for (int col = 0; col < m_cols; ++col)
+        {
+            if (m_matrix[row][col] != other.m_matrix[row][col]) return false;
+        }
+    }
+    return true;
 }
